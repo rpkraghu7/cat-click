@@ -1,9 +1,4 @@
-
-var elem1 = $("#image1");
-var elem2 = $("#image2");
 var score = $("#score");
-var score2 = $("#score2");
-var catName = ['kitty1','kitty2'];
 
 var cat = {
   cats:[
@@ -58,8 +53,7 @@ var cat = {
 
   $(".btn").click(function(){
     var id =$(this).attr('id');
-    $()
-    console.log(id);
+      console.log(id);
     $("#picture").remove();
     switch (id) {
       case cat.cats[0].id:
@@ -87,63 +81,18 @@ var cat = {
       console.log('fail1');
       break;
     }
-    switch (id) {
-      case cat.cats[0].id:
+
+
+    var foo = $.grep(cat.cats, function(e){ return e.id === id});
+    console.log(foo);
+    console.log(foo[0].id);
+    if(id===foo[0].id)
+    {
       $("#picture").click(function(){
-        cat.cats[0].count++
-        $("#score").text(cat.cats[0].count);
-        console.log(cat.cats[0].count);
-      });
-      break;
-      case cat.cats[1].id:
-      $("#picture").click(function(){
-        cat.cats[1].count++
-        $("#score").text(cat.cats[1].count);
-        console.log(cat.cats[1].count);
-      });
-      break;
-      case cat.cats[2].id:
-      $("#picture").click(function(){
-        cat.cats[2].count++
-        $("#score").text(cat.cats[2].count);
-        console.log(cat.cats[2].count);
-      });
-      break;
-      case cat.cats[3].id:
-      $("#picture").click(function(){
-        cat.cats[3].count++
-        $("#score").text(cat.cats[3].count);
-        console.log(cat.cats[3].count);
-      });
-      break;
-      case cat.cats[4].id:
-      $("#picture").click(function(){
-        cat.cats[4].count++
-        $("#score").text(cat.cats[4].count);
-        console.log(cat.cats[4].count);
-      });
-      break;
-      default:
-        console.log('fail');
+          foo[0].count++
+           $("#score").text(foo[0].count);
+           console.log(foo[0].count);
+         });
     }
+
   });
-
-//console.log(cat.cats[1].id);
-
- // $(".btn").click(function(){
- //   var id =$(this).attr('id');
- //   //$("#cat-image").append();
- // });
-
-//var count=0;
-
-//   $(".image").click(function(){
-// var id =$(this).attr('id');
-// console.log(id);
-//   });
-
-
-  // elem2.click(function(){
-  //   count2++;
-  //   score2.text(count2);
-  // });
