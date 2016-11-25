@@ -49,15 +49,27 @@ var octopus = {
   getCurrentScore: function(num){
     return modal.cats[num-1].count;
   },
+  setCatName: function(cat,num){
+      modal.cats[num-1].name=cat
+      //var catname= modal.cats[num-1].name;
+      console.log(modal.cats[num-1].name)
+      $("#list").remove();
+      $("#cat-list").append( '<ul id="list"></ul>');
+      view.buttonRender();
+    return modal.cats[num-1].name;
+
+  },
   init: function(){
     console.log('view');
     view.buttonRender();
     view.catRender();
+    view.admin();
   }
 }
 
 
 var view = {
+   catid: null,
   buttonRender: function(){
     var catList = $("#list");
     var cat= octopus.getNames();
@@ -65,7 +77,7 @@ var view = {
             var catname=cat[i].name;
             var num1 = i+1
             var catt ='<button id="cat'+num1+'" class="btn" type="button">'+catname+'<br>';
-              $("#list").append(catt);
+              catList.append(catt);
       }
 
   },
@@ -82,14 +94,34 @@ catRender: function(){
       console.log(name[num-1].name);
       var catName = name[num-1].name;
      $("#name").html('<p>"'+catName+'"</p>');
-      
 
       $("#picture").click(function(){
         var score =octopus.getScore(num);
         $("#score").text(score);
         //console.log(score);
       });
+      view.catid= num;
+    });
+},
+admin: function(){
+  var adminpanel = $(".admin-panel");
+  var admin =$("#admin");
+  var num=view.catid;
+  adminpanel.hide();
+  admin.click(function(){
+    adminpanel.show();
   });
+  $("#cancel").click(function(){
+    adminpanel.hide();
+  });
+  $("#save").click(function(){
+    var catName=$("#cat").val();
+    console.log(view.catid);
+    var cat=octopus.setCatName(catName,view.catid);
+  //   var btnid = "cat"+view.catid;
+  //   console.log(btnid);
+  //  $('#btnid').replaceWith('<button id="cat'+num+'" class="btn1" type="button">'+cat+'<br>');
+    });
 }
 }
 octopus.init();
