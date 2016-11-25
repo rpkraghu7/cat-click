@@ -38,21 +38,24 @@ var octopus = {
     return modal.cats;
   },
   getUrl: function(num){
-      var foo = $.grep(modal.cats, function(e){ return e.url});
-      return foo[num-1].url;
+    return modal.cats[num-1].url;
   },
   getScore: function(num){
-      var foo = $.grep(modal.cats, function(e){ return e.url});
-      foo[num-1].count++
-      var score =foo[num-1].count;
+      modal.cats[num-1].count++
+      var score =modal.cats[num-1].count;
       console.log(score);
       return score;
   },
+  getCurrentScore: function(num){
+    return modal.cats[num-1].count;
+  },
   init: function(){
+    console.log('view');
     view.buttonRender();
+    view.catRender();
   }
 }
-var id;
+
 
 var view = {
   buttonRender: function(){
@@ -64,7 +67,7 @@ var view = {
             var catt ='<button id="cat'+num1+'" class="btn" type="button">'+catname+'<br>';
               $("#list").append(catt);
       }
-      view.catRender();
+
   },
 catRender: function(){
     $(".btn").click(function(){
@@ -73,12 +76,18 @@ catRender: function(){
       var num=id.slice(-1);
       var url = octopus.getUrl(num);
       $("#cat-image").append('<img id="picture" class="image" src="'+url+'" alt="cats">');
+      score=octopus.getCurrentScore(num);
+      $("#score").text(score);
+      var name = octopus.getNames();
+      console.log(name[num-1].name);
+      var catName = name[num-1].name;
+     $("#name").html('<p>"'+catName+'"</p>');
+      
 
       $("#picture").click(function(){
         var score =octopus.getScore(num);
-        //var score= score +1;
         $("#score").text(score);
-        console.log(score);
+        //console.log(score);
       });
   });
 }
